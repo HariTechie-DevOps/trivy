@@ -1,0 +1,34 @@
+services:
+
+  frontend:
+    build: ./frontend-react
+    container_name: frontend-react
+    ports:
+      - "3000:3000"
+
+  auth-service:
+    build: ./auth-service
+    container_name: auth-service
+    ports:
+      - "3001:3001"
+
+  payment-service:
+    build: ./payment-service
+    container_name: payment-service
+    ports:
+      - "3002:3002"
+
+  user-service:
+    build: ./user-service
+    container_name: user-service
+    ports:
+      - "3003:3003"
+      
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: vulnapp
+    ports:
+      - "3306:3306"
