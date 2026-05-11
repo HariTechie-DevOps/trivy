@@ -1,39 +1,35 @@
 services:
 
-  frontend:
-    build: ./frontend-react
-    container_name: frontend-react
-    ports:
-      - "3005:3000"
-
   auth-service:
-    build: ./auth-service
-    container_name: auth-service
+    build:
+      context: ./auth-service
+    container_name: trivy-auth-service
     ports:
       - "3001:3001"
 
   payment-service:
-    build: ./payment-service
-    container_name: payment-service
+    build:
+      context: ./payment-service
+    container_name: trivy-payment-service
     ports:
       - "3002:3002"
 
   user-service:
-    build: ./user-service
-    container_name: user-service
+    build:
+      context: ./user-service
+    container_name: trivy-user-service
     ports:
       - "3003:3003"
-      
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: trivy-frontend
+    ports:
+      - "3005:3000"
+
   mysql:
     image: mysql:5.7
     container_name: mysql
-
-    environment:
-      MYSQL_ROOT_PASSWORD: root123
-      MYSQL_DATABASE: vulnapp
-
     ports:
       - "3306:3306"
-
-    volumes:
-      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
